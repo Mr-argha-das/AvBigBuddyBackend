@@ -25,5 +25,7 @@ class UserAdd(CreateAPIView):
        serializer = UserSerializers(data=request.data)
        if serializer.is_valid():
            serializer.save() 
-           return Response(serializer.data, status=status.HTTP_201_CREATED)
+           return Response({"message": "Login True",
+                            "status":True,
+                            "data":serializer.data}, status=status.HTTP_201_CREATED)
        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
