@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-m!vqmo08++dzf=sl0s7_pb=53xow%iwkz@yq%gv+7fr1m3t*he
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api.bigbuddy.site']
+ALLOWED_HOSTS = [
+    'api.bigbuddy.site'
+]
 
 
 # Application definition
