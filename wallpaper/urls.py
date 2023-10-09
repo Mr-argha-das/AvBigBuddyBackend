@@ -28,7 +28,8 @@ urlpatterns = [
     path('api/v1/tags-list', TagsLsit.as_view(), name="tags-list"),
     path('api/v1/tags-add', TagsAdd.as_view(), name="tags-add"),
     path('api/v1/user-data', UserData.as_view(), name="user-data"),
-    path('api/v1/banners-data', BannerList.as_view(), name="banners-data"), 
+    path('api/v1/banners-data', BannerList.as_view(), name="banners-data"),
+    path('api/v1/banners-add', BannerAdd.as_view(), name="banners-add"),
     path('api/v1/tags-by-id',TagsByBannerId.as_view(), name="tags-by-id"),
 
 ]
