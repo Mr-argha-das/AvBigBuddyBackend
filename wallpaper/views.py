@@ -7,8 +7,6 @@ from rest_framework.generics import (
     ListAPIView,
     CreateAPIView
 )
-from django.core.serializers.json import DjangoJSONEncoder
-import json
 from rest_framework.response import Response
 
 
