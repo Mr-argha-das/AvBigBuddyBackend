@@ -17,9 +17,10 @@ class TagsLsit(ListAPIView):
 
 class TagsAdd(CreateAPIView):
     queryset = Tags.objects.all()
+    serializer_class = TagsSerializers
     def create(self, request, *args, **kwargs):
         serializer = TagsSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"message":"Tag added", "data": serializer.data, "status": True }, status=status.HTTP_200_OK)
-        return Response({"message":"Some thing went wrong", "data": None, "status": True }, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message":"Some thing went wrong", "data": None, "status": False }, status=status.HTTP_400_BAD_REQUEST)
