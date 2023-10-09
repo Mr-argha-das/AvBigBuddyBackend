@@ -24,3 +24,14 @@ class TagsAdd(CreateAPIView):
             serializer.save()
             return Response({"message":"Tag added", "data": serializer.data, "status": True }, status=status.HTTP_200_OK)
         return Response({"message":"Some thing went wrong", "data": None, "status": False }, status=status.HTTP_400_BAD_REQUEST)
+    
+class TagsByBannerId(ListAPIView):
+    def list(self, request, *args, **kwargs):
+        ba_id = request.GET.get("ba_id")
+        query = Tags.objects.filter(banner_id=ba_id)
+        user = list(query.values()) 
+        return Response({
+            "messsage":"Tags Found",
+            "data":user,
+            "status": True,
+        }, status=status.HTTP_200_OK)

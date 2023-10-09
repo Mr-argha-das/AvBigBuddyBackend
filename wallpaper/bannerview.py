@@ -24,3 +24,20 @@ class BannerAdd(CreateAPIView):
              "data": None,
              "status": False,
             }, status=status.HTTP_400_BAD_REQUEST)
+        
+class BannerList(ListAPIView):
+    serializer_class = BannerSerializer
+    def list(self, request, *args, **kwargs):
+        queryset = Banners.objects.all()
+        data = BannerSerializer(data=queryset, many = True)
+        if data.is_valid():
+            return Response({
+                "message":"banners get success",
+                "data":data.data,
+                "status":True
+            }, status=status.HTTP_200_OK)
+        return Response({
+                "message":"banners not found",
+                "data":None,
+                "status":False
+            }, status=status.HTTP_400_BAD_REQUEST)
