@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import (UserLsit, UserAdd, UserLogin)
+from .views import (UserLsit, UserAdd, UserLogin, UserData)
 from .tagsview import (TagsLsit, TagsAdd)
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('api/v1/user-singup', UserAdd.as_view(), name='user-singup'),
     path('api/v1/user-login', UserLogin.as_view(), name="user-login"),
     path('api/v1/tags-list', TagsLsit.as_view(), name="tags-list"),
-    path('api/v1/tags-add', TagsAdd.as_view(), name="tags-add")
+    path('api/v1/tags-add', TagsAdd.as_view(), name="tags-add"),
+    path('api/v1/user-data', UserData.as_view(), name="user-data")
 ]

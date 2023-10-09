@@ -7,6 +7,8 @@ from rest_framework.generics import (
     ListAPIView,
     CreateAPIView
 )
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 from rest_framework.response import Response
 
 
@@ -50,3 +52,17 @@ class UserLogin(APIView):
                 return Response({"message": "Login Password faild ", "data": None, "status": False}, status=status.HTTP_401_UNAUTHORIZED)
         return Response({"message": "User could find", "data": None, "status": False}, status=status.HTTP_401_UNAUTHORIZED)
 
+class UserData(APIView):
+    def get(self, request, *args, **kwargs):
+        id = request.GET.get("id")
+        print(id)
+        
+        userdata = User.objects.filter(id=id)
+        user = list(userdata.values())
+        print(userdata)
+        return Response({
+            "message":"user data",
+            "data": user,
+            "status": True,
+        }, status=status.HTTP_200_OK)
+    
