@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.conf import settings
 from .views import (UserLsit, UserAdd, UserLogin, UserData)
 from .tagsview import (TagsLsit, TagsAdd, TagsByBannerId)
 from .bannerview import (BannerAdd, BannerList)
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/user-list', UserLsit.as_view(), name='user-list'),
@@ -28,8 +29,8 @@ urlpatterns = [
     path('api/v1/tags-list', TagsLsit.as_view(), name="tags-list"),
     path('api/v1/tags-add', TagsAdd.as_view(), name="tags-add"),
     path('api/v1/user-data', UserData.as_view(), name="user-data"),
-    path('api/v1/banners-data', BannerList.as_view(), name="banners-data"),
+    path('api/v1/banners-list', BannerList.as_view(), name="banners-lsit"),
     path('api/v1/banners-add', BannerAdd.as_view(), name="banners-add"),
     path('api/v1/tags-by-id',TagsByBannerId.as_view(), name="tags-by-id"),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

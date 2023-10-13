@@ -10,28 +10,35 @@ from rest_framework.response import Response
 
 
 class TagsLsit(ListAPIView):
+    queryset = Tags.objects.all()
+    serializer_class = TagsSerializers
+
     def list(self, request, *args, **kwargs):
-        query = Tags.objects.all()
-        serializer = TagsSerializers(query, many=True)
-        return Response({"status": True, "data": serializer.data}, status=status.HTTP_200_OK)
+        queryset = self.get_queryset()
+        serializer = TagsSerializers(queryset, many=True)
+
+        return Response({"status": True, "data": serializer.data }, status=status.HTTP_200_OK)
+
 
 class TagsAdd(CreateAPIView):
     queryset = Tags.objects.all()
     serializer_class = TagsSerializers
+
     def create(self, request, *args, **kwargs):
         serializer = TagsSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message":"Tag added", "data": serializer.data, "status": True }, status=status.HTTP_200_OK)
-        return Response({"message":"Some thing went wrong", "data": None, "status": False }, status=status.HTTP_400_BAD_REQUEST)
-    
+            return Response({"message": "Tag added", "data": serializer.data, "status": True}, status=status.HTTP_200_OK)
+        return Response({"message": "Some thing went wrong", "data": None, "status": False}, status=status.HTTP_400_BAD_REQUEST)
+
+
 class TagsByBannerId(ListAPIView):
     def list(self, request, *args, **kwargs):
         ba_id = request.GET.get("ba_id")
         query = Tags.objects.filter(banner_id=ba_id)
-        user = list(query.values()) 
+        user = list(query.values())
         return Response({
-            "messsage":"Tags Found",
-            "data":user,
+            "messsage": "Tags Found",
+            "data": user,
             "status": True,
         }, status=status.HTTP_200_OK)

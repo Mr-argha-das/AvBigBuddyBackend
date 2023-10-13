@@ -7,37 +7,38 @@ from rest_framework.generics import (
     CreateAPIView
 )
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class BannerAdd(CreateAPIView):
     queryset = Banners.objects.all()
     serializer_class = BannerSerializer
+    parser_classes = (MultiPartParser, FormParser)
     def create(self, request, *args, **kwargs):
         serializer = BannerSerializer(data=request.data)
+
         if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
             return Response({
-             "message":"Banner add",
-             "data":serializer.data,
-             "status": True,
+                "message": "Banner add",
+                "data": serializer.data,
+                "status": True,
             }, status=status.HTTP_201_CREATED)
         return Response({
-             "message":"Some thing went wrong",
-             "data": None,
-             "status": False,
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
+            "message": "Some thing went wrong",
+            "data": None,
+            "status": False,
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
 class BannerList(ListAPIView):
+    queryset = Banners.objects.all()
     serializer_class = BannerSerializer
     def list(self, request, *args, **kwargs):
-        queryset = Banners.objects.all()
-        data = BannerSerializer(data=queryset, many = True)
-        if data.is_valid():
-            return Response({
-                "message":"banners get success",
-                "data":data.data,
-                "status":True
-            }, status=status.HTTP_200_OK)
+        queryset = self.get_queryset()
+        print(queryset)
         return Response({
-                "message":"banners not found",
-                "data":None,
-                "status":False
-            }, status=status.HTTP_400_BAD_REQUEST)
+                "message": "banners get success",
+                "data": queryset.values(),
+                "status": True
+            }, status=status.HTTP_200_OK)

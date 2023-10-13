@@ -5,3 +5,4 @@ from .bannermodels import Banners
 admin.site.register(User)
 admin.site.register(Tags)
 admin.site.register(Banners)
+
