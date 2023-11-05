@@ -17,7 +17,7 @@ class TagsLsit(ListAPIView):
         queryset = self.get_queryset()
         serializer = TagsSerializers(queryset, many=True)
 
-        return Response({"status": True, "data": serializer.data }, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TagsAdd(CreateAPIView):

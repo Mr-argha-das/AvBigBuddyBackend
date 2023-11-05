@@ -37,8 +37,4 @@ class BannerList(ListAPIView):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         print(queryset)
-        return Response({
-                "message": "banners get success",
-                "data": queryset.values(),
-                "status": True
-            }, status=status.HTTP_200_OK)
+        return Response(queryset.values(), status=status.HTTP_200_OK)
